@@ -1,92 +1,92 @@
-// // The simplest way to create an object is using an object literal
-// const circle = {
-//   radius: 1,
-//   draw: function () {},
-// };
+// The simplest way to create an object is using an object literal
+const circle = {
+  radius: 1,
+  draw: function () {},
+};
 
-// // To create multiple objects with the same structure and behaviuor (methods), use a factory or a constructor.
+// To create multiple objects with the same structure and behaviuor (methods), use a factory or a constructor.
 
-// // Factory function
-// function createCircle(radius) {
-//   return {
-//     radius,
-//     draw: function () {},
-//   };
-// }
+// Factory function
+function createCircle(radius) {
+  return {
+    radius,
+    draw: function () {},
+  };
+}
 
-// // Constructor function
-// function Circle(radius) {
-//   this.radius = radius;
-//   this.draw = function () {};
-// }
+// Constructor function
+function Circle(radius) {
+  this.radius = radius;
+  this.draw = function () {};
+}
 
-// // Every object has a "constructor" property which returns the function that was used to construct or create that object.
-// const x = {};
-// x.constructor; // returns Object()
+// Every object has a "constructor" property which returns the function that was used to construct or create that object.
+const x = {};
+x.constructor; // returns Object()
 
-// // In JavaScript, functions are objects. They have properties and methods.
-// Circle.name;
-// Circle.length;
-// Circle.constructor; // returns Function()
-// Circle.call({}, 1); // to call the Circle function
-// Circle.apply({}, [1]);
+// In JavaScript, functions are objects. They have properties and methods.
+Circle.name;
+Circle.length;
+Circle.constructor; // returns Function()
+Circle.call({}, 1); // to call the Circle function
+Circle.apply({}, [1]);
 
-// // Value types are copied by their value, reference types are copied by their reference.
-// // Value types in JavaScript are: String, Number, Boolean, Symbol, undefined and null
-// // Reference types are: Object, Function and Array
+// Value types are copied by their value, reference types are copied by their reference.
+// Value types in JavaScript are: String, Number, Boolean, Symbol, undefined and null
+// Reference types are: Object, Function and Array
 
-// // JavaScript objects are dynamic. You can add/remove properties:
-// circle.location = {};
-// circle["location"] = {};
+// JavaScript objects are dynamic. You can add/remove properties:
+circle.location = {};
+circle["location"] = {};
 
-// delete circle.location;
+delete circle.location;
 
-// // To enumerate the members in an object:
-// for (let key in circle) console.log(key, circle[key]);
+// To enumerate the members in an object:
+for (let key in circle) console.log(key, circle[key]);
 
-// Object.keys(circle);
+Object.keys(circle);
 
-// // To see if an object has a given property
-// if ("location" in circle)
-//   // Abstraction means hiding the complexity/details and showing only the essentials.
-//   // We can hide the details by using private members. Replace "this" with "let".
+// To see if an object has a given property
+if ("location" in circle)
+  // Abstraction means hiding the complexity/details and showing only the essentials.
+  // We can hide the details by using private members. Replace "this" with "let".
 
-//   function Circle(radius) {
-//     // Public member
-//     this.radius = radius;
+  function Circle(radius) {
+    // Public member
+    this.radius = radius;
 
-//     // Private member
-//     let defaultLocation = {};
-//   }
+    // Private member
+    let defaultLocation = {};
+  }
 
-// // To define a getter/setter, use Object.defineProperty():
+// To define a getter/setter, use Object.defineProperty():
 
-// Object.defineProperty(this, "defaultLocation", {
-//   get: function () {
-//     return defaultLocation;
-//   },
-//   set: function (value) {
-//     defaultLocation = value;
-//   },
-// });
+Object.defineProperty(this, "defaultLocation", {
+  get: function () {
+    return defaultLocation;
+  },
+  set: function (value) {
+    defaultLocation = value;
+  },
+});
 
-// getter and setter
+getter and setter
 
-// const Circle = function (radius) {
-//   this.radius = radius;
-//   let defaultLocation = { x: 0, y: 0 };
-//   Object.defineProperty(this, "x", {
-//     get: function () {
-//       return defaultLocation;
-//     },
-//     set: function (value) {
-//       defaultLocation = value;
-//     },
-//   });
-// };
+const Circle = function (radius) {
+  this.radius = radius;
+  let defaultLocation = { x: 0, y: 0 };
+  Object.defineProperty(this, "x", {
+    get: function () {
+      return defaultLocation;
+    },
+    set: function (value) {
+      defaultLocation = value;
+    },
+  });
+};
 
-// const circle1 = new Circle(2);
-// console.log(circle1.x);
+const circle1 = new Circle(2);
+console.log(circle1.x);
 
 const Stopwatch = function () {
   let startTime,
@@ -94,7 +94,7 @@ const Stopwatch = function () {
     running,
     duration = 0;
 
-  this.start = function () {
+  .start = function () {
     if (running) {
       throw new Error("it has been started");
     }
@@ -102,7 +102,7 @@ const Stopwatch = function () {
     startTime = new Date();
   };
 
-  this.stop = function () {
+  .stop = function () {
     if (!running) {
       throw new Error("it has not been started");
     }
@@ -127,3 +127,71 @@ const Stopwatch = function () {
 };
 
 const watch = new Stopwatch();
+
+function Circle(radius) {
+  this.radius = radius;
+  this.draw = function () {
+    this.move();
+    console.log("draw");
+  };
+}
+
+Circle.prototype.move = function () {
+  console.log("move");
+};
+circle = new Circle(1);
+
+function Shape () {
+
+}
+
+Shape.prototype.duplicate = function () {
+  console.log('duplicate 1')
+}
+
+function extend(Child,Parent) {
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child;
+}
+
+function Circle() {
+
+}
+extend(Circle,Shape);
+
+Circle.prototype.duplicate = function() {
+  Shape.prototype.duplicate.call(this)
+  console.log('duplicate circle')
+}
+
+const c = new Circle()
+
+
+const mixin = (target, ...properties) =>{
+ Object.assign(target,...properties)
+}
+const canEat = {
+  eat: () => {
+    this.hunger --
+    console.log('canEat')
+  }
+
+}
+
+const canWalk = {
+  walk: () => {
+    console.log('walking')
+  }
+}
+
+function Person(){
+
+}
+
+const person = new Person()
+mixin(Person.prototype, canWalk, canEat)
+
+
+// console.log([4,...[1,2,3]])
+
+
